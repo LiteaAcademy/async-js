@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Asynchronní JS - setTimeout</title>
+
+        <script>
+            function flipACoin(timeout, chance = 0.5) {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        if (Math.random() > chance) {
+                            resolve();
+                        } else {
+                            reject();
+                        }
+                    }, timeout);
+                });
+            }
+
+            flipACoin(2000, 0.1).then(() => console.log('Panna'))
+                .catch(() => console.log('Orel'));
+
+            // function mySetTimeout(timeout) {
+            //     return new Promise((resolve, reject) => {
+            //         setTimeout(resolve, timeout);
+            //     });
+            // }
+
+            // mySetTimeout(3000)
+            //     .then(() => mySetTimeout(2000))
+            //     .then(() => console.log('Po 5s...'));
+
+            // console.log('Před');
+            // setTimeout(() => {
+            //     console.log('Hotovo');
+
+            //     setTimeout(() => {
+            //         console.log('Další hotovo');
+            //     }, 2000);
+            // }, 3000);
+            // console.log('Po');
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>

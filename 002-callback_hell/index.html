@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asynchronní JS</title>
+</head>
+
+<body>
+    <h1>Hello There!</h1>
+    <hr>
+    <input type="text">
+
+    <script>
+        alert('Blokuji a blokuji...');
+        
+        function makeAsyncHttpRequest(callback) {
+            return new Promise((resolve, reject) => {
+                const req = new XMLHttpRequest();
+
+                req.open('GET', 'http://localhost:8000/api.php', true);
+
+                req.onreadystatechange = function () {
+                    if (req.readyState !== 4) {
+                        return;
+                    }
+
+                    if (req.status === 201) {
+                        resolve(req);
+                    } else {
+                        reject(req);
+                    }
+                }
+
+                req.send(null);
+            });
+        }
+
+        makeAsyncHttpRequest()
+            .then(function (req) {
+                console.log('First req:');
+
+                const users = JSON.parse(req.responseText);
+                const id = users[0].id;
+
+                // fetch posts
+                return makeAsyncHttpRequest();
+            })
+            .then(function (req) {
+                console.log('Next req:')
+                console.log(req);
+            })
+            .catch(function (req) {
+                console.error(req);
+            });
+
+        // makeAsyncHttpRequest(function (req) {
+        //     const data = JSON.parse(req.responseText); // data = { id: 42 }
+
+        //     makeAsyncHttpRequest(function (req) {
+        //         // posts = [{},{},{},{}]
+        //         console.log('Výsledek zanořeného callbacku')
+        //     })
+        // });
+    </script>
+</body>
+</html>

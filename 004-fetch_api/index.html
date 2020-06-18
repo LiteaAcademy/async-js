@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Asynchronní JS - Fetch</title>
+
+        <style>
+            .user-avatar {
+                width: 200px;
+            }
+        </style>
+
+        <script type="module" src="main.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>Github Users</h1><hr>
+
+            <h2 v-if="users.length > 0">Uživatelé:</h2>
+
+            <ul id="user-list">
+                <li v-for="user in users">
+                    {{ user.login }}
+                    
+                    <button @click="loadUserAvatar(user)">
+                        Načíst avatara
+                    </button>
+                </li>
+            </ul>
+    
+            <div v-if="userAvatar">
+                <h2>
+                    Avatar uživatele:
+                    <span></span>
+                </h2>
+
+                <img
+                    alt="John Doe"
+                    class="user-avatar"
+                    :src="userAvatar"
+                />
+            </div>
+        </div>
+    </body>
+</html>
