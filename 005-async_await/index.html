@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous"
+        />
+
+        <title>Asynchronní JS - Async/Await</title>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="module" src="app.js" defer></script>
+    </head>
+    
+    <body>
+        <div id="app" class="container pt-4">
+            <div
+                v-if="errorMessage !== null"
+                class="alert alert-danger"
+                role="alert"
+            >
+                {{ errorMessage }}
+
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    @click="errorMessage = null"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <h1>Async/Await</h1>
+
+            <h2>Github users</h2>
+
+            <ul v-if="users.length > 0">
+                <li
+                    v-for="user in users"
+                    :key="user.id"
+                >
+                    {{ user.login }}
+                </li>
+            </ul>
+
+            <button
+                class="btn btn-primary"
+                @click="loadGithubUsers"
+            >
+                Load Github users
+            </button>
+
+            <button
+                class="btn btn-secondary"
+                @click="users = []"
+            >
+                Clear users
+            </button>
+        </div>
+    </body>
+</html>
